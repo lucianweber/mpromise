@@ -6,8 +6,8 @@ Since the structure and the overall behaviour of mpromises is heavily based on p
 
 
 ## Downloads
-- [Mpromise](https://github.com/LucianW/MPromise/blob/master/build/mpromise.js)
-- [Mpromise-Min](https://github.com/LucianW/MPromise/blob/master/build/mpromise.min.js)
+- [Mpromise](https://raw.githubusercontent.com/LucianW/MPromise/master/build/mpromise.js)
+- [Mpromise-Min](https://raw.githubusercontent.com/LucianW/MPromise/master/build/mpromise.min.js)
 
 
 ## Why use mpromise.js?
