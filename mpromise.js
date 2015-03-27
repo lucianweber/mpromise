@@ -73,34 +73,25 @@
 		this.catch = function(fn) {
 			pushFn(fnArray, null, fn);
 		}
-		
-		/*this.always = function(fn) {
-			pushFn(fnArray, fn, fn);
-		}*/
 
 		return this;
 	}
 	
 	function bindA(j, type, tracker, resolve, reject) {
 		return function(value) {
-			
 			tracker[j].status = (type === 1);
 			tracker[j].value = value;
 			
-			var status;
-			var values = new Array();
+			var values = tracker.map(function(v) { return v.value; });
 			for(var i = 0; i < tracker.length; i++) {
-				values[i] = tracker[i].value;
 				if(tracker[i].status === null)
 					return;
 				if (tracker[i].status === false) {
-					status = false;
-					break;
-				} else {
-					status = true;
+					reject(values);
+					return;
 				}
 			}
-			(status === true) ? resolve(values) : reject(values);
+			resolve(values);
 		}
 	}
 	
