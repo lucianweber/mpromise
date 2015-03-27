@@ -6,8 +6,7 @@ Since the structure and the overall behaviour of mpromises is heavily based on p
 
 
 ## Downloads
-- [Mpromise](#)
-- [Mpromise-min](#)
+- [Mpromise](https://raw.githubusercontent.com/LucianW/MPromise/master/mpromise.js)
 
 
 ## Why use mpromise.js?
