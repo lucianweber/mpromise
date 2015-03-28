@@ -1,6 +1,8 @@
 (function () {
 	var root;
 	
+	"use strict";
+	
 	/* Helper Functions */
 	function isFn(fn) { return typeof fn === "function"; }
 	function isObj(obj) { return typeof obj === "object"; }
@@ -55,27 +57,30 @@
 	}
 	
 	function Promise(fn) {
+		var prom = this;
+		
 		if (!isObj(this))
 			throw new TypeError('Promises must be constructed via new');
 		if (!isFn(fn))
 			throw new TypeError('not a function');
 		
-		var fnArray = new Array();
+		this.listeners = new Array();
 		
 		setTimeout(function() {
-			bind(fn, fnArray);
+			bind(fn, prom.listeners);
 		}, 1);
 		
-		this.then = function(done, fail) {
-			pushFn(fnArray, done, fail);
-		}
-
-		this.catch = function(fn) {
-			pushFn(fnArray, null, fn);
-		}
-
 		return this;
 	}
+	
+	Promise.prototype.then = function(done, fail) {
+		pushFn(this.listeners, done, fail);
+	}
+	
+	Promise.prototype.catch = function(fn) {
+		pushFn(this.listeners, null, fn);
+	}
+	
 	
 	function bindA(j, type, tracker, resolve, reject) {
 		return function(value) {
