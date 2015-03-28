@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/lucianw/MPromise/badges/gpa.svg)](https://codeclimate.com/github/lucianw/MPromise)
+
 # mpromise.js
 Mpromise (from multiple-promise) is a library that serves a promise-like structure with one main difference to ordinary promises:  
 Mpromises can be resolved or rejected multiple times. 
