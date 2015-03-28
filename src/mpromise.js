@@ -10,6 +10,7 @@
 	/* Helper Functions */
 	function isFn(fn) { return typeof fn === "function"; }
 	function isObj(obj) { return typeof obj === "object"; }
+	var isArray = Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]" };
 	
 	/* Setting root variable */
 	if (isObj(window) && window) {
@@ -23,28 +24,31 @@
 		var lastState;
 		try {
 			fn(function (obj) {
-				if(lastState === false) return false;
+				if(lastState === false) { return false; }
 				lastState = true;
 				for(var i = 0; i < array.length; i++) {
-					if(isFn(array[i].resolve))
+					if(isFn(array[i].resolve)) {
 						array[i].resolve(obj);
+					}
 				}
 				return true;
 			}, function (obj) {
-				if(lastState === true) return false;
+				if(lastState === true) { return false; }
 				lastState = false;
 				for(var i = 0; i < array.length; i++) {
-					if(isFn(array[i].reject))
+					if(isFn(array[i].reject)) {
 						array[i].reject(obj);
+					}
 				}
 				return true;
-			})
+			});
 		} catch (ex) {
-			if (lastState === true) return;
+			if (lastState === true) { return; }
 			lastState = false;
 			for (var i = 0; i < array.length; i++) {
-				if(isFn(array[i].reject))
+				if(isFn(array[i].reject)) {
 					array[i].reject(ex);
+				}
 			}
 		}
 	}
@@ -63,12 +67,14 @@
 	function Promise(fn) {
 		var prom = this;
 		
-		if (!isObj(this))
+		if (!isObj(this)) {
 			throw new TypeError('Promises must be constructed via new');
-		if (!isFn(fn))
+		}
+		if (!isFn(fn)) {
 			throw new TypeError('not a function');
+		}
 		
-		this.listeners = new Array();
+		this.listeners = [];
 		
 		setTimeout(function() {
 			bind(fn, prom.listeners);
@@ -79,11 +85,11 @@
 	
 	Promise.prototype.then = function(done, fail) {
 		pushFn(this.listeners, done, fail);
-	}
+	};
 	
 	Promise.prototype.catch = function(fn) {
 		pushFn(this.listeners, null, fn);
-	}
+	};
 	
 	
 	function bindA(j, type, tracker, resolve, reject) {
@@ -93,8 +99,9 @@
 			
 			var values = tracker.map(function(v) { return v.value; });
 			for(var i = 0; i < tracker.length; i++) {
-				if(tracker[i].status === null)
+				if(tracker[i].status === null){
 					return;
+				}
 				if (tracker[i].status === false) {
 					reject(values);
 					return;
@@ -107,14 +114,14 @@
 	Promise.all = function() {
 		var args = Array.prototype.slice.call(arguments.length === 1 && isArray(arguments[0]) ? arguments[0] : arguments);
 		
-		if(args.length === 0)
+		if(args.length === 0){
 			return Error("insufficient arguments")
-		
-		if(args.length === 1)
+		} else if(args.length === 1) {
 			return args[0];
+		}
 		
 		return new Promise(function(resolve, reject) {
-			var tracker = new Array();
+			var tracker = [];
 			for(var i = 0; i < args.length; i++) {
 				tracker[i] = {
 					status: null,
@@ -123,8 +130,7 @@
 				args[i].then(bindA(i, 1, tracker, resolve, reject), bindA(i, 2, tracker, resolve, reject));
 			}
 		});
-		
-	}
+	};
 	
 	if (!root.MPromise) {
 		root.MPromise = Promise;
