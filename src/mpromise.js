@@ -10,7 +10,7 @@
 	/* Helper Functions */
 	function isFn(fn) { return typeof fn === "function"; }
 	function isObj(obj) { return typeof obj === "object"; }
-	var isArray = Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]" };
+	var isArray = (Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]" });
 	
 	/* Setting root variable */
 	if (isObj(window) && window) {
@@ -55,8 +55,9 @@
 	
 	function pushFn(array, resolve, reject) {
 		for(var i = 0; i < array.length; i++) {
-			if((isFn(array[i].resolve) && isFn(resolve) && array[i].resolve === resolve) || (isFn(array[i].reject) && isFn(reject) && array[i].reject === reject))
+			if((isFn(array[i].resolve) && isFn(resolve) && array[i].resolve === resolve) || (isFn(array[i].reject) && isFn(reject) && array[i].reject === reject)){
 				return;
+			}
 		}
 		array.push({
 			resolve: resolve,
@@ -108,14 +109,14 @@
 				}
 			}
 			resolve(values);
-		}
+		};
 	}
 	
 	Promise.all = function() {
 		var args = Array.prototype.slice.call(arguments.length === 1 && isArray(arguments[0]) ? arguments[0] : arguments);
 		
-		if(args.length === 0){
-			return Error("insufficient arguments")
+		if(args.length === 0) {
+			return Error("insufficient arguments");
 		} else if(args.length === 1) {
 			return args[0];
 		}

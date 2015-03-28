@@ -75,7 +75,7 @@
 			}, 5000);
 		});
 		
-		MPromise.all(t3, t4)
+		MPromise.all([t3, t4])
 			.then(function(data) {
 				console.log("t3+t4 resolve");
 				console.log(data);
