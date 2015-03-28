@@ -1,3 +1,7 @@
+/**
+ * @author Lucian Weber [lucian@weber.xyz]
+ */
+
 (function () {
 	var root;
 	
