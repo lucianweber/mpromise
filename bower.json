@@ -1,0 +1,28 @@
+{
+  "name": "mpromiseJS",
+  "version": "0.1.0",
+  "description": "JavaScript Framework for Promises that resolve and reject multiple times.",
+  "main": "build/mpromise.js",
+  "moduleType": [
+    "es6"
+  ],
+  "keywords": [
+    "mpromise",
+    "multiple promise",
+    "multi resolve",
+    "multi reject"
+  ],
+  "authors": [
+    "Lucian Weber <lucian@weber.xyz> (www.weber.xyz)"
+  ],
+  "license": "MIT",
+  "homepage": "-",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources",
+    "tests",
+    "src"
+  ]
+}
