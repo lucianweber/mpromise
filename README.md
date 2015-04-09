@@ -104,4 +104,4 @@ MPromise.all(promiseA, promiseB)
 **Note**: The Handler will be given an array with the response objects of all mpromises. They are in the same order as the mpromises are given to `MPromise.all()`.
 
 ## License
-Do what ever you want. Please consider keeping my name on it.
+MIT
