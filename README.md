@@ -22,6 +22,7 @@ If you need a promise-like structure that can be resolved multiple times, you mi
 
 ## How to use mpromise.js?
 On first sight mpromise looks like a normal promise:
+
 ```js
 var promise = new MPromise(function(resolve, reject) {
 	// do something
@@ -43,6 +44,7 @@ An the `catch(function)` function as shortcut to `then(undefined, function)` wil
 
 ### Resolving and Rejecting
 The main difference being that you can resolve or reject multiple times is pretty easy to use. Take a look at the following slightly modified example.
+
 ```js
 var promise = new MPromise(function(resolve, reject) {
 	// load data from cache
@@ -71,6 +73,7 @@ var promise = new MPromise(function(resolve, reject) {
 
 ### Handlers
 You can also add multiple handlers to an mpromise. The handlers will be called in the order they were applied to the mpromise.
+
 ```js
 var always = function(data) {
 	// react always
@@ -88,6 +91,7 @@ promise.catch(function(data) {
 
 ### Static Functions
 Currently mpromises only support `MPromise.all(mpromises)` to combine several mpromises. They can be provided as array or seperated arguments.
+
 ```js
 var promiseA = new MPromise(function(resolve, reject) {
 	// do stuff
