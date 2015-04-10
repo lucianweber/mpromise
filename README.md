@@ -15,10 +15,9 @@ Since the structure and the overall behaviour of mpromises is heavily based on p
 ## Why use mpromise.js?
 If you need a promise-like structure that can be resolved multiple times, you might want to consider trying mpromises over standard promises.
 
-**Tradeoffs**: Mpromises are not able to fully replace promises. For instance, mpromises do not return a new mpromise when `then(function, function)` is called. Queuing mpromises is therefor not possible at this time.
+**Tradeoffs**: As of Version 0.2.0 mpromises do support queuing like a+ conform promises. But obviously mpromises are still not the best solution for every purpose. And since mpromises are still work-in-progress, you should not use mpromises for production.
 
-**Future**: I am not shure right now if queuing will be possible in future versions, since the multiple resolvings might cause some hickups. I will investigate this issue later.
-
+**Future**: Since this is still in early stages I am not completely shure where this is going. But since its very likely that a project might want to use promises and mpromises at the same time I thought about combining the two things in future to reduce the overhead that is produced by using a simple polyfill and mpromises.
 
 ## How to use mpromise.js?
 On first sight mpromise looks like a normal promise:
@@ -40,7 +39,7 @@ promise.then(function(data) {
 	// react to reject
 });
 ```
-An the `catch(function)` function as shortcut to `then(undefined, function)` will work too.
+And the `catch(function)` function as shortcut to `then(undefined, function)` will work too.
 
 ### Resolving and Rejecting
 The main difference being that you can resolve or reject multiple times is pretty easy to use. Take a look at the following slightly modified example.
@@ -69,7 +68,7 @@ var promise = new MPromise(function(resolve, reject) {
 	}
 });
 ```
-**Note**: After you resolved the mpromise once you will not be able to reject it afterwards. The same rules apply to rejecting first. The call to `resolve(data)` and `reject(data)` returns a boolean to indicate if it was successful.
+**Note**: After you resolved the mpromise once, you will not be able to reject it afterwards. The same rules apply to rejecting first. The call to `resolve(data)` and `reject(data)` returns a boolean to indicate if it was successful.
 
 ### Handlers
 You can also add multiple handlers to an mpromise. The handlers will be called in the order they were applied to the mpromise.
