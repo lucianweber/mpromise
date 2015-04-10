@@ -28,7 +28,12 @@
 				lastState = true;
 				for(var i = 0; i < array.length; i++) {
 					if(isFn(array[i].resolve)) {
-						array[i].resolve(obj);
+						try {
+							var retval = array[i].resolve(obj);
+							array[i].onResolve(retval);
+						} catch (ex) {
+							array[i].onReject(retval);
+						}
 					}
 				}
 				return true;
@@ -37,7 +42,12 @@
 				lastState = false;
 				for(var i = 0; i < array.length; i++) {
 					if(isFn(array[i].reject)) {
-						array[i].reject(obj);
+						try {
+							var retval = array[i].reject(obj);
+							array[i].onResolve(retval);
+						} catch (ex) {
+							array[i].onReject(retval);
+						}
 					}
 				}
 				return true;
@@ -48,12 +58,13 @@
 			for (var i = 0; i < array.length; i++) {
 				if(isFn(array[i].reject)) {
 					array[i].reject(ex);
+					// queue?
 				}
 			}
 		}
 	}
 	
-	function pushFn(array, resolve, reject) {
+	function pushFn(array, resolve, reject, onResolve, onReject) {
 		for(var i = 0; i < array.length; i++) {
 			if((isFn(array[i].resolve) && isFn(resolve) && array[i].resolve === resolve) || (isFn(array[i].reject) && isFn(reject) && array[i].reject === reject)){
 				return;
@@ -61,7 +72,9 @@
 		}
 		array.push({
 			resolve: resolve,
-			reject: reject
+			reject: reject,
+			onResolve: onResolve,
+			onReject: onReject
 		});
 	}
 	
@@ -85,11 +98,17 @@
 	}
 	
 	Promise.prototype.then = function(done, fail) {
-		pushFn(this.listeners, done, fail);
+		var me = this;
+		return new MPromise(function(resolve, reject) {
+			pushFn(me.listeners, done, fail, resolve, reject);
+		});
 	};
 	
 	Promise.prototype.catch = function(fn) {
-		pushFn(this.listeners, null, fn);
+		var me = this;
+		return new MPromise(function(resolve, reject) {
+			pushFn(me.listeners, null, fn, resolve, reject);
+		});
 	};
 	
 	

@@ -18,7 +18,12 @@
 		t1.then(function(data) {
 			console.log("t1 - resolve1");
 			console.log(data);
-		});
+			return "t1 - resolve1 - return";
+		}).then(function(data) {
+			console.log(data);
+		}).then(function(data) {
+			console.log(data);
+		})
 
 		t1.then(function(data) {
 			console.log("t1 - resolve2");
