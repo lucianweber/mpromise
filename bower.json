@@ -1,6 +1,6 @@
 {
   "name": "mpromisejs",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "JavaScript Framework for Promises that resolve and reject multiple times.",
   "main": "build/mpromise.js",
   "moduleType": [
