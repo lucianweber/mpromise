@@ -5,12 +5,12 @@
 (function () {
 	var root;
 	
-	"use strict";
+	'use strict';
 	
 	/* Helper Functions */
-	function isFn(fn) { return typeof fn === "function"; }
-	function isObj(obj) { return typeof obj === "object"; }
-	var isArray = (Array.isArray || function(value) { return Object.prototype.toString.call(value) === "[object Array]" });
+	function isFn(fn) { return typeof fn === 'function'; }
+	function isObj(obj) { return typeof obj === 'object'; }
+	var isArray = (Array.isArray || function(value) { return Object.prototype.toString.call(value) === '[object Array]' });
 	
 	/* Setting root variable */
 	if (isObj(window) && window) {
@@ -64,7 +64,8 @@
 		}
 	}
 	
-	function pushFn(array, resolve, reject, onResolve, onReject) {
+	function pushFn(resolve, reject, onResolve, onReject) {
+		var array = this.listeners;
 		for(var i = 0; i < array.length; i++) {
 			if((isFn(array[i].resolve) && isFn(resolve) && array[i].resolve === resolve) || (isFn(array[i].reject) && isFn(reject) && array[i].reject === reject)){
 				return;
@@ -100,14 +101,14 @@
 	Promise.prototype.then = function(done, fail) {
 		var me = this;
 		return new MPromise(function(resolve, reject) {
-			pushFn(me.listeners, done, fail, resolve, reject);
+			pushFn.call(me, done, fail, resolve, reject);
 		});
 	};
 	
 	Promise.prototype.catch = function(fn) {
 		var me = this;
 		return new MPromise(function(resolve, reject) {
-			pushFn(me.listeners, null, fn, resolve, reject);
+			pushFn.call(me, null, fn, resolve, reject);
 		});
 	};
 	
@@ -135,7 +136,7 @@
 		var args = Array.prototype.slice.call(arguments.length === 1 && isArray(arguments[0]) ? arguments[0] : arguments);
 		
 		if(args.length === 0) {
-			return Error("insufficient arguments");
+			return Error('insufficient arguments');
 		} else if(args.length === 1) {
 			return args[0];
 		}

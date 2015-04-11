@@ -1,16 +1,24 @@
 [![Code Climate](https://codeclimate.com/github/lucianw/mpromise/badges/gpa.svg)](https://codeclimate.com/github/lucianw/MPromise)
-
+[![npm version](https://badge.fury.io/js/mpromisejs.svg)](http://badge.fury.io/js/mpromisejs)
+[![Bower version](https://badge.fury.io/bo/mpromisejs.svg)](http://badge.fury.io/bo/mpromisejs)
 # mpromise.js
 Mpromise (from multiple-promise) is a library that serves a promise-like structure with one main difference to ordinary promises:  
 Mpromises can be resolved or rejected multiple times. 
 
 Since the structure and the overall behaviour of mpromises is heavily based on promises you should be familiar with promises befor using mpromises. I recommend [this article](http://www.html5rocks.com/en/tutorials/es6/promises/) by Jake Archibald on html5rocks.com!
 
+**Caution**: There currently is no stable version of mpromises. Even though I test my work continuously, you probably should not use it for production purposes.
 
-## Downloads
+## Installation
+
+### Download
+
 - [Mpromise](https://raw.githubusercontent.com/LucianW/MPromise/master/build/mpromise.js)
 - [Mpromise-Min](https://raw.githubusercontent.com/LucianW/MPromise/master/build/mpromise.min.js)
 
+### NPM & Bower
+
+You can either use `npm install mpromisejs` to install mpromises with npm or you can use bower via `bower install mpromisejs`!
 
 ## Why use mpromise.js?
 If you need a promise-like structure that can be resolved multiple times, you might want to consider trying mpromises over standard promises.
