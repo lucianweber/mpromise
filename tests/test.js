@@ -86,6 +86,10 @@
 		var t5 = new MPromise(function(resolve, reject) {
 			resolve({d: true, e: false, f: 5});
 		});
+		
+		t5.then(function(data) {
+			console.log("t5 resolve", data);
+		});
 
 		MPromise.all([t3, t5])
 		.then(function(data) {
@@ -94,6 +98,14 @@
 			console.log("t3+t5 reject", data);
 		});
 
+		// #### TEST 6 ####
+		var t6 = new MPromise(function(resolve, reject) {
+			reject({d: true, e: false, f: 6});
+		});
+		
+		t6.catch(function(data) {
+			console.log("t6 reject", data);
+		});
 	}
 	test();
 

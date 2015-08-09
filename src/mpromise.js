@@ -20,12 +20,13 @@
 	}
 	
 	
-	function bind(fn, array) {
-		var lastState;
+	function bind(fn, promise) {
+		var array = promise.listeners;
 		try {
 			fn(function (obj) {
-				if(lastState === false) { return false; }
-				lastState = true;
+				if(promise.lastAction.type === false) { return false; }
+				promise.lastAction.type = true;
+				promise.lastAction.data = obj;
 				for(var i = 0; i < array.length; i++) {
 					if(isFn(array[i].resolve)) {
 						try {
@@ -38,8 +39,9 @@
 				}
 				return true;
 			}, function (obj) {
-				if(lastState === true) { return false; }
-				lastState = false;
+				if(promise.lastAction.type === true) { return false; }
+				promise.lastAction.type = false;
+				promise.lastAction.data = obj;
 				for(var i = 0; i < array.length; i++) {
 					if(isFn(array[i].reject)) {
 						try {
@@ -53,12 +55,12 @@
 				return true;
 			});
 		} catch (ex) {
-			if (lastState === true) { return; }
-			lastState = false;
+			if (promise.lastAction.type === true) { return; }
+			promise.lastAction.type = false;
+				promise.lastAction.data = ex;
 			for (var i = 0; i < array.length; i++) {
 				if(isFn(array[i].reject)) {
 					array[i].reject(ex);
-					// queue?
 				}
 			}
 		}
@@ -83,16 +85,20 @@
 		var prom = this;
 		
 		if (!isObj(this)) {
-			throw new TypeError('Promises must be constructed via new');
+			throw new TypeError('MPromises must be constructed via new');
 		}
 		if (!isFn(fn)) {
 			throw new TypeError('not a function');
 		}
 		
 		this.listeners = [];
+		this.lastAction = {
+			type: null,
+			data: null
+		};
 		
 		setTimeout(function() {
-			bind(fn, prom.listeners);
+			bind(fn, prom);
 		}, 1);
 		
 		return this;
@@ -100,6 +106,13 @@
 	
 	_promise.prototype.then = function(done, fail) {
 		var me = this;
+		setTimeout(function() {
+			if(me.lastAction.type === true && isFn(done)) {
+				done(me.lastAction.data);
+			} else if(me.lastAction.type === false && isFn(fail)) {
+				fail(me.lastAction.data);
+			}
+		}, 1);
 		return new _promise(function(resolve, reject) {
 			pushFn.call(me, done, fail, resolve, reject);
 		});
@@ -107,6 +120,11 @@
 	
 	_promise.prototype.catch = function(fn) {
 		var me = this;
+		setTimeout(function() {
+			if(me.lastAction.type === false && isFn(fn)) {
+				fn(me.lastAction.data);
+			}
+		}, 1);
 		return new _promise(function(resolve, reject) {
 			pushFn.call(me, null, fn, resolve, reject);
 		});
