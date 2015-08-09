@@ -79,7 +79,7 @@
 		});
 	}
 	
-	function Promise(fn) {
+	function _promise(fn) {
 		var prom = this;
 		
 		if (!isObj(this)) {
@@ -98,16 +98,16 @@
 		return this;
 	}
 	
-	Promise.prototype.then = function(done, fail) {
+	_promise.prototype.then = function(done, fail) {
 		var me = this;
-		return new MPromise(function(resolve, reject) {
+		return new _promise(function(resolve, reject) {
 			pushFn.call(me, done, fail, resolve, reject);
 		});
 	};
 	
-	Promise.prototype.catch = function(fn) {
+	_promise.prototype.catch = function(fn) {
 		var me = this;
-		return new MPromise(function(resolve, reject) {
+		return new _promise(function(resolve, reject) {
 			pushFn.call(me, null, fn, resolve, reject);
 		});
 	};
@@ -132,7 +132,7 @@
 		};
 	}
 	
-	Promise.all = function() {
+	_promise.all = function() {
 		var args = Array.prototype.slice.call(arguments.length === 1 && isArray(arguments[0]) ? arguments[0] : arguments);
 		
 		if(args.length === 0) {
@@ -141,7 +141,7 @@
 			return args[0];
 		}
 		
-		return new Promise(function(resolve, reject) {
+		return new _promise(function(resolve, reject) {
 			var tracker = [];
 			for(var i = 0; i < args.length; i++) {
 				tracker[i] = {
@@ -154,7 +154,7 @@
 	};
 	
 	if (!root.MPromise) {
-		root.MPromise = Promise;
+		root.MPromise = _promise;
 	}
 	
 })();
