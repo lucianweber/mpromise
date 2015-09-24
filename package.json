@@ -7,10 +7,12 @@
     "test": "tests"
   },
   "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-rename": "*",
+    "gulp-uglify": "*"
   },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/lucianw/mpromise.git"
