@@ -1,32 +1,32 @@
 {
-  "name": "mpromisejs",
-  "version": "0.3.1",
-  "description": "JavaScript Framework for Promises that resolve and reject multiple times.",
-  "main": "build/mpromise.js",
-  "directories": {
-    "test": "tests"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "gulp": "*",
-    "gulp-rename": "*",
-    "gulp-uglify": "*"
-  },
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lucianw/mpromise.git"
-  },
-  "keywords": [
-    "mpromise",
-    "multiple promise",
-    "multi resolve",
-    "multi reject"
-  ],
-  "author": "Lucian Weber <lucian@weber.xyz> (www.weber.xyz)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lucianw/mpromise/issues"
-  },
-  "homepage": "https://github.com/lucianw/mpromise"
+	"name": "mpromisejs",
+	"version": "0.3.1",
+	"description": "JavaScript Framework for Promises that resolve and reject multiple times.",
+	"main": "build/mpromise.js",
+	"directories": {
+		"test": "tests"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"gulp": "*",
+		"gulp-rename": "*",
+		"gulp-uglify": "*"
+	},
+	"scripts": {},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lucianw/mpromise.git"
+	},
+	"keywords": [
+		"mpromise",
+		"multiple promise",
+		"multi resolve",
+		"multi reject"
+	],
+	"author": "Lucian Weber <lucian@weber.xyz> (www.weber.xyz)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/lucianw/mpromise/issues"
+	},
+	"homepage": "https://github.com/lucianw/mpromise"
 }
