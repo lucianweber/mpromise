@@ -1,3 +1,12 @@
+> # Deprication Notice
+>
+> Development on this project has stopped.
+>
+> If you are searching for Promises that can be resolved multiple times, I highly encurage you to take a look at [RxJS](https://github.com/Reactive-Extensions/RxJS).
+> When I started working on this project, I was new to the concept of Promises and did not know of ReactiveExtensions. ReactiveExtensions are available for more languages, it has an active community and a better set of features than this little project.
+>
+> If I had known of RxJS at the time, this project would not have been started.
+
 [![Code Climate](https://codeclimate.com/github/lucianw/mpromise/badges/gpa.svg)](https://codeclimate.com/github/lucianw/MPromise)
 [![npm version](https://badge.fury.io/js/mpromisejs.svg)](http://badge.fury.io/js/mpromisejs)
 [![Bower version](https://badge.fury.io/bo/mpromisejs.svg)](http://badge.fury.io/bo/mpromisejs)
