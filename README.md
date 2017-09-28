@@ -14,7 +14,7 @@
 Mpromise (from multiple-promise) is a library that serves a promise-like structure with one main difference to ordinary promises:  
 Mpromises can be resolved or rejected multiple times. 
 
-Since the structure and the overall behaviour of mpromises is heavily based on promises you should be familiar with promises befor using mpromises. I recommend [this article](http://www.html5rocks.com/en/tutorials/es6/promises/) by Jake Archibald on html5rocks.com!
+Since the structure and the overall behaviour of mpromises is heavily based on promises you should be familiar with promises befor using mpromises. I recommend [this article](https://developers.google.com/web/fundamentals/primers/promises) by Jake Archibald!
 
 **Caution**: There currently is no stable version of mpromises. Even though I test my work continuously, you probably should not use it for production purposes.
 
